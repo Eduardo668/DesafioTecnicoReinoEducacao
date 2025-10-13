@@ -24,6 +24,7 @@ public class Cliente {
     private String nome;
 
     @NotBlank
+    @Column(unique = true)
     @Size(max = 100)
     private String email;
 
@@ -37,6 +38,6 @@ public class Cliente {
     @NotBlank
     @Size(max = 400)
     private String destinoDesejado;
-    
+
 
 }
