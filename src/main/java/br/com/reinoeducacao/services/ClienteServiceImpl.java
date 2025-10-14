@@ -1,6 +1,6 @@
 package br.com.reinoeducacao.services;
 
-import br.com.reinoeducacao.dto.ClienteDto;
+import br.com.reinoeducacao.dtos.ClienteDto;
 import br.com.reinoeducacao.dto.UpdateClienteDto;
 import br.com.reinoeducacao.exceptions.ClienteException;
 import br.com.reinoeducacao.models.Cliente;
@@ -8,6 +8,7 @@ import br.com.reinoeducacao.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,22 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public List<ClienteDto> findAll() {
-        return List.of();
+        try{
+
+            List<Cliente> clientes = clienteRepository.findAll();
+
+            ModelMapper mapper = new ModelMapper();
+
+            List<ClienteDto> clienteDtoList = clientes.stream()
+                    .map(cliente -> mapper.map(cliente, ClienteDto.class))
+                    .toList();
+
+
+            return clienteDtoList;
+
+        } catch (ClienteException exception){
+            throw new ClienteException("Ocorreu um erro ao tentar listar todos os clientes: ", exception);
+        }
     }
 
     @Override

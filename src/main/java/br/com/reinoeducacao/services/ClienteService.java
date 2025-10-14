@@ -1,6 +1,6 @@
 package br.com.reinoeducacao.services;
 
-import br.com.reinoeducacao.dto.ClienteDto;
+import br.com.reinoeducacao.dtos.ClienteDto;
 import br.com.reinoeducacao.dto.UpdateClienteDto;
 import org.springframework.stereotype.Component;
 
