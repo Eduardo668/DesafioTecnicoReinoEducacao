@@ -1,0 +1,24 @@
+package br.com.reinoeducacao.controllers;
+
+import br.com.reinoeducacao.dto.ClienteDto;
+import br.com.reinoeducacao.services.ClienteServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
+public class ClienteController {
+
+    private final ClienteServiceImpl clienteService;
+
+    @PostMapping("/clientes")
+    public ResponseEntity<ClienteDto> createCliente(@RequestBody ClienteDto clienteDto){
+        return ResponseEntity.
+                status(HttpStatus.CREATED)
+                .body(clienteService.create(clienteDto));
+    }
+
+}
