@@ -1,4 +1,4 @@
-package br.com.reinoeducacao.dto;
+package br.com.reinoeducacao.dtos;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
@@ -12,6 +12,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ClienteDto {
+
+    private Long id;
 
     @NotBlank
     @Size(max = 200)
