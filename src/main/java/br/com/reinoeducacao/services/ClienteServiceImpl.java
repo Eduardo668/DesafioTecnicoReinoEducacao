@@ -36,7 +36,7 @@ public class ClienteServiceImpl implements ClienteService {
             return clienteDto;
 
         } catch (ClienteException exception){
-            throw new ClienteException("Ocorreu um erro ao tentar registrar um cliente: ", e);
+            throw new ClienteException("Ocorreu um erro ao tentar registrar um cliente: ", exception);
         }
     }
 
