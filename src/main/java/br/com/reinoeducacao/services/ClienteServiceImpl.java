@@ -8,6 +8,7 @@ import br.com.reinoeducacao.exceptions.InsufficientMilesException;
 import br.com.reinoeducacao.models.Cliente;
 import br.com.reinoeducacao.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// Nessa classe está presente toda a regra de negocio do sistema
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,6 +28,8 @@ public class ClienteServiceImpl implements ClienteService {
     private final ClienteRepository clienteRepository;
     private final ModelMapper modelMapper;
 
+    // Metodo para criar um cliente
+    @Transactional
     @Override
     public ClienteDto create(ClienteDto clienteDto) {
         try{
@@ -45,6 +49,7 @@ public class ClienteServiceImpl implements ClienteService {
         }
     }
 
+    // Metodo para buscar todos os clientes registrados no sistema
     @Override
     public List<ClienteDto> findAll() {
         try{
@@ -65,6 +70,7 @@ public class ClienteServiceImpl implements ClienteService {
         }
     }
 
+    // Metodo para atualizar os dados de um cliente
     @Override
     public ClienteDto update(Long id, UpdateClienteDto updateClienteDto)     {
         try{
@@ -87,6 +93,7 @@ public class ClienteServiceImpl implements ClienteService {
         }
     }
 
+    // Metodo para deletar um cliente
     @Override
     public void delete(Long id) {
         try{
@@ -103,6 +110,7 @@ public class ClienteServiceImpl implements ClienteService {
         }
     }
 
+    // Metodo para buscar um cliente pelo seu id
     @Override
     public ClienteDto findById(Long id) {
         try{
@@ -122,7 +130,7 @@ public class ClienteServiceImpl implements ClienteService {
         }
     }
 
-    // Diferencial
+    // Metodo para adicionar milhas ao saldo de milhas do cliente
     @Override
     public ClienteDto addMiles(Long id, Long milesQuantity) {
         try{
@@ -146,6 +154,7 @@ public class ClienteServiceImpl implements ClienteService {
         }
     }
 
+    // Metodo para reduzir milhas do saldo de milhas do cliente
     @Override
     public ClienteDto reduceMiles(Long id, Long milesQuantity) {
         try{

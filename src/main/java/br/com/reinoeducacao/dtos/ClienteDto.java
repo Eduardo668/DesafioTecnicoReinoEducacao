@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+/* Esta é classe de Objeto de transferencia de dados relativa a classe Cliente, ela serve para que
+possamos receber e enviar os dados do Cliente, sem expor o funcionamento e os atributos internos da classe Cliente principal*/
 @Getter
 @Setter
 @Builder

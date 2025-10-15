@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+// Os metodos que possuem as regras de negocio do sistema são definidos nessa interface
 public interface ClienteService {
 
     ClienteDto create(ClienteDto clienteDto);

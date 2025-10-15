@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+// Esta é a entidade base do Sistema
 @Entity
 @Builder
 @Getter

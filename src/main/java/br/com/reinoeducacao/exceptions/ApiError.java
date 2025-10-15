@@ -3,6 +3,7 @@ package br.com.reinoeducacao.exceptions;
 import java.time.Instant;
 import java.util.Map;
 
+// Record que padroniza a exibição de erros
 public record ApiError(
         Instant timestamp,
         int status,
