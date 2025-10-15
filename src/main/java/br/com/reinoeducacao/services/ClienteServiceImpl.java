@@ -4,6 +4,7 @@ import br.com.reinoeducacao.dtos.ClienteDto;
 import br.com.reinoeducacao.dto.UpdateClienteDto;
 import br.com.reinoeducacao.exceptions.ClienteException;
 import br.com.reinoeducacao.exceptions.ClienteNotFoundException;
+import br.com.reinoeducacao.exceptions.InsufficientMilesException;
 import br.com.reinoeducacao.models.Cliente;
 import br.com.reinoeducacao.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.util.BeanUtil;
@@ -155,6 +156,11 @@ public class ClienteServiceImpl implements ClienteService {
 
             if (cliente.get().getSaldoMilhas() > 0 && (cliente.get().getSaldoMilhas() - milesQuantity) >= 0) {
                 cliente.get().setSaldoMilhas(cliente.get().getSaldoMilhas() - milesQuantity);
+            } else {
+                throw new InsufficientMilesException(
+                        "WARN: A quantidade de milhas a reduzir é maior que o saldo atual do cliente."
+                );
+
             }
 
             ClienteDto clienteDto = new ClienteDto();
