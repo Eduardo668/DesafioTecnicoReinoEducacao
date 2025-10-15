@@ -40,8 +40,8 @@ public class ClienteServiceImpl implements ClienteService {
             log.info("INFO: Cliente criado com sucesso!");
             return clienteDto;
 
-        } catch (ClienteException exception){
-            throw new ClienteException("ERROR: Ocorreu um erro ao tentar registrar um cliente: ", exception);
+        } catch (Exception exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar registrar um cliente, verifique os logs para mais detalhes: ", exception);
         }
     }
 
@@ -60,8 +60,8 @@ public class ClienteServiceImpl implements ClienteService {
 
             return clienteDtoList;
 
-        } catch (ClienteException exception){
-            throw new ClienteException("ERROR: Ocorreu um erro ao tentar listar todos os clientes: ", exception);
+        } catch (Exception exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar listar todos os clientes, verifique os logs para mais detalhes: ", exception);
         }
     }
 
@@ -82,8 +82,8 @@ public class ClienteServiceImpl implements ClienteService {
 
             return clienteDto;
 
-        } catch (ClienteException exception){
-            throw new ClienteException("ERROR: Ocorreu um erro ao tentar atualizar os dados do cliente com o ID:"+id, exception);
+        } catch (Exception exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar atualizar os dados do cliente com o ID, verifique os logs para mais detalhes:"+id, exception);
         }
     }
 
@@ -98,8 +98,8 @@ public class ClienteServiceImpl implements ClienteService {
 
             clienteRepository.delete(cliente.get());
 
-        } catch (ClienteException exception){
-            throw new ClienteException("ERROR: Ocorreu um erro ao tentar deletar o cliente com o ID:"+id+":",exception);
+        } catch (Exception exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar deletar o cliente com o ID:"+id+", verifique os logs para mais detalhes: ",exception);
         }
     }
 
@@ -117,8 +117,8 @@ public class ClienteServiceImpl implements ClienteService {
 
             return clienteDto;
 
-        } catch (ClienteException exception){
-            throw new ClienteException("ERROR: Ocorreu um erro ao tentar encontrar o cliente com o ID:"+id, exception);
+        } catch (Exception exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar encontrar o cliente com o ID:"+id+", verifique os logs para mais detalhes: ", exception);
         }
     }
 
@@ -141,8 +141,8 @@ public class ClienteServiceImpl implements ClienteService {
 
            return clienteDto;
 
-        } catch (ClienteException exception){
-            throw new ClienteException("ERROR: Ocorreu um erro ao tentar adicionar milhas ao cliente com o ID:"+id, exception);
+        } catch (Exception exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar adicionar milhas ao cliente com o ID:"+id+", verifique os logs para mais detalhes: ", exception);
         }
     }
 
@@ -170,8 +170,8 @@ public class ClienteServiceImpl implements ClienteService {
 
             return clienteDto;
 
-        } catch (ClienteException exception){
-            throw new ClienteException("ERROR: Ocorreu um erro ao tentar reduzir as milhas do cliente com o ID:"+id, exception);
+        } catch (Exception exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar reduzir as milhas do cliente com o ID:"+id+", verifique os logs para mais detalhes:", exception);
         }
     }
 }
