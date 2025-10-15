@@ -30,4 +30,10 @@ public class ClienteController {
                 .body(clienteService.findAll());
     }
 
+    @DeleteMapping("/clientes/{clienteId}")
+    public ResponseEntity<String> deleteCliente(@PathVariable Long clienteId){
+        clienteService.delete(clienteId);
+        return ResponseEntity.status(HttpStatus.OK).body("Cliente com ID:"+clienteId+" deletado com sucesso!");
+    }
+
 }
