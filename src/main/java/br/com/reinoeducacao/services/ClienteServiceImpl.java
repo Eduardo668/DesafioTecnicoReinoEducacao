@@ -23,6 +23,7 @@ import java.util.Optional;
 public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public ClienteDto create(ClienteDto clienteDto) {
@@ -64,8 +65,25 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public ClienteDto update(Long id, UpdateClienteDto updateClienteDto) {
-        return null;
+    public ClienteDto update(Long id, UpdateClienteDto updateClienteDto)     {
+        try{
+            Optional<Cliente> cliente = clienteRepository.findById(id);
+            if (cliente.isEmpty()){
+                throw new ClienteNotFoundException("WARN: O cliente com o ID:"+id+" não existe!");
+            }
+
+            modelMapper.map(updateClienteDto, cliente.get());
+
+            Cliente updatedCliente = clienteRepository.save(cliente.get());
+            ClienteDto clienteDto = new ClienteDto();
+
+            BeanUtils.copyProperties(updatedCliente, clienteDto);
+
+            return clienteDto;
+
+        } catch (ClienteException exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar atualizar os dados do cliente com o ID:"+id, exception);
+        }
     }
 
     @Override
