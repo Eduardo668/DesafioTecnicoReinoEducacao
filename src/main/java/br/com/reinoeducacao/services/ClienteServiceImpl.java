@@ -86,7 +86,21 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteDto findById(Long id) {
-        return null;
+        try{
+            Optional<Cliente> cliente = clienteRepository.findById(id);
+            if (cliente.isEmpty()){
+                throw new ClienteNotFoundException("WARN: O cliente com o ID:"+id+" não existe!");
+            }
+
+            ClienteDto clienteDto = new ClienteDto();
+
+            BeanUtils.copyProperties(cliente.get(), clienteDto);
+
+            return clienteDto;
+
+        } catch (ClienteException exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar encontrar o cliente com o ID:"+id, exception);
+        }
     }
 
     @Override
