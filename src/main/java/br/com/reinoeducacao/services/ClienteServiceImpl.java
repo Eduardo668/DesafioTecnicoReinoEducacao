@@ -3,6 +3,7 @@ package br.com.reinoeducacao.services;
 import br.com.reinoeducacao.dtos.ClienteDto;
 import br.com.reinoeducacao.dto.UpdateClienteDto;
 import br.com.reinoeducacao.exceptions.ClienteException;
+import br.com.reinoeducacao.exceptions.ClienteNotFoundException;
 import br.com.reinoeducacao.models.Cliente;
 import br.com.reinoeducacao.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.util.BeanUtil;
@@ -14,6 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +39,7 @@ public class ClienteServiceImpl implements ClienteService {
             return clienteDto;
 
         } catch (ClienteException exception){
-            throw new ClienteException("Ocorreu um erro ao tentar registrar um cliente: ", exception);
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar registrar um cliente: ", exception);
         }
     }
 
@@ -57,7 +59,7 @@ public class ClienteServiceImpl implements ClienteService {
             return clienteDtoList;
 
         } catch (ClienteException exception){
-            throw new ClienteException("Ocorreu um erro ao tentar listar todos os clientes: ", exception);
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar listar todos os clientes: ", exception);
         }
     }
 
@@ -68,7 +70,18 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void delete(Long id) {
+        try{
+            Optional<Cliente> cliente = clienteRepository.findById(id);
 
+            if (cliente.isEmpty()){
+                throw new ClienteNotFoundException("WARN: O cliente com o ID:"+id+" não existe!");
+            }
+
+            clienteRepository.delete(cliente.get());
+
+        } catch (ClienteException exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar deletar o cliente com o ID:"+id+":",exception);
+        }
     }
 
     @Override
