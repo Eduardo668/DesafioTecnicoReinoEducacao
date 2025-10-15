@@ -1,13 +1,12 @@
 package br.com.reinoeducacao.services;
 
 import br.com.reinoeducacao.dtos.ClienteDto;
-import br.com.reinoeducacao.dto.UpdateClienteDto;
+import br.com.reinoeducacao.dtos.UpdateClienteDto;
 import br.com.reinoeducacao.exceptions.ClienteException;
 import br.com.reinoeducacao.exceptions.ClienteNotFoundException;
 import br.com.reinoeducacao.exceptions.InsufficientMilesException;
 import br.com.reinoeducacao.models.Cliente;
 import br.com.reinoeducacao.repository.ClienteRepository;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -88,7 +87,11 @@ public class ClienteServiceImpl implements ClienteService {
 
             return clienteDto;
 
-        } catch (Exception exception){
+        }
+        catch (ClienteNotFoundException  exception) {
+            throw exception;
+        }
+        catch (Exception exception){
             throw new ClienteException("ERROR: Ocorreu um erro ao tentar atualizar os dados do cliente com o ID, verifique os logs para mais detalhes:"+id, exception);
         }
     }
@@ -105,7 +108,11 @@ public class ClienteServiceImpl implements ClienteService {
 
             clienteRepository.delete(cliente.get());
 
-        } catch (Exception exception){
+        }
+        catch (ClienteNotFoundException  exception) {
+            throw exception;
+        }
+        catch (Exception exception){
             throw new ClienteException("ERROR: Ocorreu um erro ao tentar deletar o cliente com o ID:"+id+", verifique os logs para mais detalhes: ",exception);
         }
     }
@@ -125,7 +132,11 @@ public class ClienteServiceImpl implements ClienteService {
 
             return clienteDto;
 
-        } catch (Exception exception){
+        }
+        catch (ClienteNotFoundException  exception) {
+            throw exception;
+        }
+        catch (Exception exception){
             throw new ClienteException("ERROR: Ocorreu um erro ao tentar encontrar o cliente com o ID:"+id+", verifique os logs para mais detalhes: ", exception);
         }
     }
@@ -149,7 +160,11 @@ public class ClienteServiceImpl implements ClienteService {
 
            return clienteDto;
 
-        } catch (Exception exception){
+        }
+        catch (ClienteNotFoundException exception) {
+            throw exception;
+        }
+        catch (Exception exception){
             throw new ClienteException("ERROR: Ocorreu um erro ao tentar adicionar milhas ao cliente com o ID:"+id+", verifique os logs para mais detalhes: ", exception);
         }
     }
@@ -179,7 +194,11 @@ public class ClienteServiceImpl implements ClienteService {
 
             return clienteDto;
 
-        } catch (Exception exception){
+        }
+        catch (ClienteNotFoundException | InsufficientMilesException exception) {
+            throw exception;
+        }
+        catch (Exception exception){
             throw new ClienteException("ERROR: Ocorreu um erro ao tentar reduzir as milhas do cliente com o ID:"+id+", verifique os logs para mais detalhes:", exception);
         }
     }
