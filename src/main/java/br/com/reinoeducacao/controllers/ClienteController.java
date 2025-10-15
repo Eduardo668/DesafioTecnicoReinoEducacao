@@ -41,5 +41,9 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.findById(clienteId));
     }
 
+    @PutMapping("/clientes/{clienteId}")
+    public ResponseEntity<ClienteDto> updateCliente(@PathVariable Long clienteId, @RequestBody br.com.reinoeducacao.dto.UpdateClienteDto updateClienteDto){
+       return ResponseEntity.status(HttpStatus.OK).body(clienteService.update(clienteId, updateClienteDto));
+    }
 
 }
