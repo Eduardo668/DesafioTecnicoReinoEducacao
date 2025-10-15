@@ -144,4 +144,28 @@ public class ClienteServiceImpl implements ClienteService {
             throw new ClienteException("ERROR: Ocorreu um erro ao tentar adicionar milhas ao cliente com o ID:"+id, exception);
         }
     }
+
+    @Override
+    public ClienteDto reduceMiles(Long id, Long milesQuantity) {
+        try{
+            Optional<Cliente> cliente = clienteRepository.findById(id);
+            if (cliente.isEmpty()){
+                throw new ClienteNotFoundException("WARN: O cliente com o ID:"+id+" não existe!");
+            }
+
+            if (cliente.get().getSaldoMilhas() > 0 && (cliente.get().getSaldoMilhas() - milesQuantity) >= 0) {
+                cliente.get().setSaldoMilhas(cliente.get().getSaldoMilhas() - milesQuantity);
+            }
+
+            ClienteDto clienteDto = new ClienteDto();
+
+            Cliente updatedCliente = clienteRepository.save(cliente.get());
+            BeanUtils.copyProperties(updatedCliente, clienteDto);
+
+            return clienteDto;
+
+        } catch (ClienteException exception){
+            throw new ClienteException("ERROR: Ocorreu um erro ao tentar reduzir as milhas do cliente com o ID:"+id, exception);
+        }
+    }
 }
