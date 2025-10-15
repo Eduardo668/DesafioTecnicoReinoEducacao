@@ -14,5 +14,6 @@ public interface ClienteService {
     void delete(Long id);
     ClienteDto findById(Long id);
     ClienteDto addMiles(Long id, Long miles);
+    ClienteDto reduceMiles(Long id, Long milesQuantity);
 
 }
