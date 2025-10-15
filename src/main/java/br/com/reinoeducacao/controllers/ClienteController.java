@@ -36,4 +36,10 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body("Cliente com ID:"+clienteId+" deletado com sucesso!");
     }
 
+    @GetMapping("/clientes/{clienteId}")
+    public ResponseEntity<ClienteDto> findClienteById(@PathVariable Long clienteId){
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.findById(clienteId));
+    }
+
+
 }
